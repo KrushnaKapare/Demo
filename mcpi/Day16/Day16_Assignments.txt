@@ -1,0 +1,7 @@
+## Assignments
+
+1. Use TIM7 to generate delay in milliseconds (using polling). On all LEDs for 3 seconds and Off for 7 seconds.
+2. Use TIM7 to generate interrupt after every 1 second. Increment a global count in interrupt handler. Display count value on LCD (I2C based).
+3. Implement PWM on Timer1. Increase duty cycle by 10 on each switch press (handle interrupt). Optional part: On next switch press decrease value by 10.
+4. Use center align mode for PWM in advanced timer. How it affect the output?
+

@@ -1,0 +1,34 @@
+typedef struct
+{
+  __IO uint32_t MODER;    /*Address offset: 0x00      */
+  __IO uint32_t OTYPER;   /*Address offset: 0x04      */
+  __IO uint32_t OSPEEDR;  /*Address offset: 0x08      */
+  __IO uint32_t PUPDR;    /*Address offset: 0x0C      */
+  __IO uint32_t IDR;      /*Address offset: 0x10      */
+  __IO uint32_t ODR;      /*Address offset: 0x14      */
+  __IO uint32_t BSRR;     /*Address offset: 0x18      */
+  __IO uint32_t LCKR;     /*Address offset: 0x1C      */
+  __IO uint32_t AFR[2];   /*Address offset: 0x20-0x24 */
+} GPIO_TypeDef;
+
+PERIPH_BASE = 0x40000000UL
+AHB1PERIPH_BASE = (PERIPH_BASE + 0x00020000UL)
+GPIOA_BASE = (AHB1PERIPH_BASE + 0x0000UL)
+GPIOA = ((GPIO_TypeDef *) GPIOA_BASE)
+GPIOA = ((GPIO_TypeDef *) 0x40000000UL + 0x00020000UL + 0x0000UL)
+GPIOA = ((GPIO_TypeDef *) 0x40020000UL)
+
+GPIOA->MODER
+GPIOA->OTYPER
+GPIOA->OSPEEDR
+GPIOA->PUPDR
+GPIOA->ODR
+
+
+
+
+
+
+
+
+

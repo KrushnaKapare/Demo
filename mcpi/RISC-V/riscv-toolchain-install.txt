@@ -1,0 +1,18 @@
+## RISC-V Linux Toolchain Installation
+
+* sudo apt install gcc-riscv64-linux-gnu
+
+* In ~/.bashrc add following line to avoid C library related error:
+	* export QEMU_LD_PREFIX=/usr/riscv64-linux-gnu
+
+## RISC-V Baremetal Toolchain Installation
+
+* Do not install from Ubuntu repo. It is buggy. If already installed, remove it.
+	* sudo apt remove gcc-riscv64-unknown-elf
+
+* Download toolchain from SiFive.
+	* https://static.dev.sifive.com/dev-tools/freedom-tools/v2020.12/riscv64-unknown-elf-toolchain-10.2.0-2020.12.8-x86_64-linux-ubuntu14.tar.gz
+
+* In ~/.bashrc file update the PATH.
+	* export PATH=/home/nilesh/setup/riscv64-unknown-elf-toolchain/bin:$PATH
+

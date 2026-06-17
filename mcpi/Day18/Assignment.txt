@@ -1,0 +1,5 @@
+Assignments
+1. On switch press, read ADC (LDR) input and display on I2C LCD.
+2. Optional assignment: Read ADC input periodically (after 100 ms). Change blinking rate of LEDs based on ADC reading.
+3. Configure DAC in time triggered mode. On Update event from Timer6 new value (±16) should be set in DAC so that connected LED intensity will increase to maximum and then decrease to minimum (repeatedly). Refer the steps above in notes.
+4. Optional assignment: Get accelerometer reading per second. Based on accelerometer reading (inclination) change the blinking rate of LED. More inclination should blink LED faster.

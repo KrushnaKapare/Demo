@@ -1,0 +1,19 @@
+ STM32CubeIDE Installation Steps (Debian/Linux)
+
+Download link: https://www.st.com/en/development-tools/stm32cubeide.html#get-software
+
+1. Go to the Downloads folder
+   Locate the downloaded file:
+   stm32cubeide_1.19.0_25607_20250703_0907_amd64.deb_bundle.sh.zip
+
+2. Open a terminal in the Downloads folder and unzip the file:
+   unzip stm32cubeide_1.19.0_25607_20250703_0907_amd64.deb_bundle.sh.zip
+
+3. Run the installer script with root permissions:
+   sudo sh ./st-stm32cubeide_1.19.0_25607_20250703_0907_amd64.deb_bundle.sh
+
+4. Launch STM32CubeIDE
+   After installation, you can start STM32CubeIDE from:
+   - Application Menu, or
+   - By running the command in terminal:
+     stm32cubeide

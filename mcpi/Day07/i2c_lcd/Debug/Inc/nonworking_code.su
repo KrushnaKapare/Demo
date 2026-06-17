@@ -1,0 +1,15 @@
+../Inc/system_stm32f4xx.h:128:20:DelayMs	24	static
+../Inc/nonworking_code.c:72:6:I2CInit	4	static
+../Inc/nonworking_code.c:103:6:I2CStart	4	static
+../Inc/nonworking_code.c:110:6:I2CRepeatStart	8	static
+../Inc/nonworking_code.c:114:6:I2CStop	4	static
+../Inc/nonworking_code.c:121:6:I2CSendSlaveAddr	16	static
+../Inc/nonworking_code.c:131:6:I2CSendData	16	static
+../Inc/nonworking_code.c:141:9:I2CRecvDataAck	4	static
+../Inc/nonworking_code.c:150:9:I2CRecvDataNAck	4	static
+../Inc/nonworking_code.c:159:6:I2CWrite	16	static
+../Inc/nonworking_code.c:174:6:LcdInit	8	static
+../Inc/nonworking_code.c:192:6:LcdWriteNibble	24	static
+../Inc/nonworking_code.c:201:6:LcdWriteByte	24	static
+../Inc/nonworking_code.c:210:6:LcdPuts	24	static
+../Inc/nonworking_code.c:243:5:main	8	static
