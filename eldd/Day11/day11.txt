@@ -1,0 +1,27 @@
+
+- Agenda
+    - Direct Hardware access revision *
+    - Interrupt handling - Top half
+    - Interrupt handling - Bottom half
+    - Soft IRQs
+    - Tasklets
+    - Work queues
+    - USB introduction
+
+- BBB GPIO
+    - Four GPIOs i.e. 0, 1, 2, 3.
+    - Each GPIO have 32 pins.
+        - GPIO0.0 to GPIO0.31
+        - GPIO1.0 to GPIO1.31
+        - GPIO2.0 to GPIO2.31
+        - GPIO3.0 to GPIO3.31
+    - Linux GPIO pin mapping to BBB GPIO pins
+        - Linux GPIO pins 0...31 --> GPIO0.0 to GPIO0.31
+        - Linux GPIO pins 32...63 --> GPIO1.0 to GPIO1.31
+        - Linux GPIO pins 64...95 --> GPIO2.0 to GPIO2.31
+        - Linux GPIO pins 96...127 --> GPIO3.0 to GPIO3.31
+    - BBB GPIO1_16 --> Linux GPIO Pin = 1 * 32 + 16 = 48
+    - BBB GPIO0_26 --> Linux GPIO Pin = 0 * 32 + 26 = 26
+    - BBB GPIO2_1 --> Linux GPIO Pin = 2 * 32 + 1 = 65
+    - Linux GPIO Pin 115 --> BBB GPIO3_19 = 3 * 32 + 19 = 115
+    - Linux GPIO Pin 49 --> BBB GPIO1_17 = 1 * 32 + 17 = 49

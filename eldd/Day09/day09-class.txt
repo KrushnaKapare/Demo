@@ -1,0 +1,56 @@
+pchar_fops - pchar_open() - pchar_close() - pchar_read()
+
+pchar_cdev - file_operations \*ops
+
+open file table entry -- file - f_ops \* ---> pchar_fops --- when file is opened for first time
+
+linux process life cycle
+
+- fork() -- new process
+- TASK_READY
+- TASK_RUNNING
+- TASK_RUNNABLE (TASK_READY or TASK_RUNNING) -- R
+- TASK_INTERRUPTIBLE -- S
+- TASK_UNINTERRUPTIBLE -- D -- Dormant
+- TASK_ZOMBIE -- Z
+- TASK_DEAD -- X
+- TASK_STOPPED -- T
+
+process sleep - when required in io or in sync, the process will make sleep. - e.g. when printing is done on printer, the process will go in wait state (by printer driver) until the printing is completed. - e.g. when a process is writing on disk, the process will sleep (by disk device driver) until write operation is completed. - what do you mean by process sleeps? 1. process pcb is removed from ready queue 2. its state is changed to sleep (interruptible or uninterruptible) 3. process pcb is added into waiting queue
+
+process wakeup - after io completed or sync wakeup, the process is woken up. - it will wakeup after intended condition or signal (only for interruptible sleep). - what do you mean by process wakeup? 1. process pcb is removed from waiting queue 2. its state is changed to ready 3. process pcb is added into ready queue
+
+
+Process Context vs Interrupt Context
+
+user program is running -- main() executing
+    - user space code
+    - process context
+
+interrupt ocurred -- isr() executing
+    - kernel space code
+    - interrupt context
+
+user program called as system call -- e.g. vfs_write() executing
+    - kernel space code
+    - process context -- user process (who called syscall)
+
+shortage of memory -- pages swapped out
+    - kernel space code
+    - process context -- page stealer process - kswapd (kernel thread)
+
+process context
+    - when running user space code -- local variables are created on user stack
+    - user stack size -- 100s of kbs -- can grow at runtime upto mbs.
+    - when running kernel space code -- local variables are created on kernel stack
+    - kernel stack size -- 2 pages -- 8 kb -- fixed
+    - can sleep (pcb moved from ready queue to waiting queue) 
+
+interrupt context
+    - isr() code -- local variables created on interrupt stack
+    - one interrupt stack per cpu -- 1 page -- 4 kb -- fixed
+    - cannot sleep
+
+
+
+

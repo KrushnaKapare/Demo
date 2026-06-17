@@ -1,0 +1,136 @@
+# BSD UNIX
+- Ken Thompson donated UNIX source code UCB.
+- BSD UNIX developed by UCB - as research project.
+
+# Socket
+- Socket is IPC mechanism.
+- Developed by BSD UNIX.
+- Developed as extension to the pipe concept.
+- Socket is bi-directional.
+- Socket types
+	- UNIX
+	- INET
+
+- UNIX socket
+	- Bi-directional commn between two processes running on same computer.
+	- Address Family = AF_UNIX
+	- Represented as a special file on disk (type 's').
+	- struct sockaddr_un -- represent UNIX socket address
+		- sun_family = AF_UNIX;
+		- sun_path = "socket file path";
+
+- INET socket
+	- Bi-directional commn between two processes running on same computer or different computers in a network.
+	- Address Family = AF_INET
+	- Represented as = IP address + port
+		- IP address - unique identity of computer in a network
+		- Port - a number representing socket on the computer
+			- 16-bit unsigned number -- 0 to 65535
+			- 0 - 1023 -- reserved for wellknown services
+				- HTTP (80), FTP (21), SSH (22), Telnet (23), ...
+			- 1024+ -- user applications
+				- MySQL Database (3306), ...
+	- struct sockaddr_in -- represent INET socket address
+		- sin_family = AF_INET;
+		- sin_addr = ip addr;
+		- sin_port = num;
+
+- Socket Programming -- Server-client programming
+	- Server process - Provide a service
+	- Client process - Consume the service
+
+- Socket System Calls:
+	- socket() - create a new socket
+	- bind() - associate server socket with some identity/addr
+	- listen() - ready to get client connection
+	- connect() - client will connect (make req) to server socket
+	- accept() - server will accept client connection req
+	- write() / send() - to write in socket
+	- read() / recv() - to read from socket
+	- close() - close the socket
+	- shutdown() - close server socket ops (rd/wr)
+
+- Socket address structs
+	- struct sockaddr (like a base class)
+		- struct sockaddr_un (like a derived class)
+		- struct sockaddr_in (like a derived class)
+		- ...
+
+- INET socket programming
+	- On Server side
+		- struct sockaddr_in serv_addr;
+		
+		serv_addr.sin_family = AF_INET;
+		serv_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
+		serv_addr.sin_port = htons(2809);
+		ret = bind(serv_fd, (struct sockaddr*)&serv_addr, sizeof(serv_addr));
+
+	- On Client side
+	
+		- struct sockaddr_in serv_addr;
+		
+		serv_addr.sin_family = AF_INET;
+		serv_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
+		serv_addr.sin_port = htons(2809);
+		ret = connect(cli_fd, (struct sockaddr*)&serv_addr, sizeof(serv_addr));
+
+	- On Server side
+	
+		- struct sockaddr_in cli_addr;
+		socklen = sizeof(cli_addr);
+		memset(&cli_addr, 0, sizeof(cli_addr));
+		cli_fd = accept(serv_fd, (struct sockaddr*)&cli_addr, &socklen);
+
+
+- UNIX socket programming
+	- On Server side
+		- struct sockaddr_un serv_addr;
+		
+		serv_addr.sun_family = AF_UNIX;
+		strcpy(serv_addr.sun_path, "/tmp/mysocket");
+		ret = bind(serv_fd, (struct sockaddr*)&serv_addr, sizeof(serv_addr));
+
+		- it will create /tmp/mysocket (as socket file)
+		- check using `ls -l /tmp/mysocket`
+		
+	- On Client side
+	
+		- struct sockaddr_un serv_addr;
+		
+		serv_addr.sun_family = AF_UNIX;
+		strcpy(serv_addr.sun_path, "/tmp/mysocket");
+		ret = connect(cli_fd, (struct sockaddr*)&serv_addr, sizeof(serv_addr));
+
+	- On Server side
+	
+		- struct sockaddr_un cli_addr;
+		socklen = sizeof(cli_addr);
+		memset(&cli_addr, 0, sizeof(cli_addr));
+		cli_fd = accept(serv_fd, (struct sockaddr*)&cli_addr, &socklen);
+
+	- On Server side
+	
+		- Delete socket file at the end (after shutdown()).
+			- unlink("/tmp/mysocket");
+
+---------------------
+
+Shared Memory - MCQ
+1. Which of the following command is used to delete shared memory?
+A. shmctl(...)
+B. ipcrm -s ...
+C. ipcrm -S ...
+D. ipcrm -m ...
+E. ipcrm -M ...
+Answer: ???
+
+---------------------
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,124 @@
+- OS Booting
+    1. Power ON
+    2. Base ROM - Firmware (BIOS) --> RAM
+    3. POST 
+    4. Bootstrap Loader -- Find bootable device
+    5. Bootloader -- Show options to user which OS to boot
+    6. Bootstrap Program
+    7. Load Kernel in Memory
+
+- Bootloader examples
+    1. Legacy Windows -- ntldr (boot.ini)
+    2. Windows Vista+ -- bootmgr (bcd)
+    3. Linux -- GrUB (menu.lst / grub.cfg)
+    4. Embedded Linux -- uBoot (uEnv.txt)
+    5. Solaris -- SILo
+    6. BSD UNIX -- BTX
+    7. Mac OS -- Bootcamp
+
+- Windows OS Booting on PC (x86)
+    1. Power ON
+    2. Base ROM - Firmware (BIOS) --> RAM
+    3. POST 
+    4. Bootstrap Loader -- Find bootable device
+    5. Bootloader -- bootmgr (reads config file -- BCD)
+    6. Bootstrap Program -- winload.exe
+    7. Load Kernel in Memory -- ntoskrnl
+
+- Linux OS Booting on PC (x86)
+    1. Power ON
+    2. Base ROM - Firmware (BIOS) --> RAM
+    3. POST 
+    4. Bootstrap Loader -- Find bootable device
+    5. Bootloader -- grub (read config -- grub.cfg)
+        ```
+        menuentry 'Ubuntu' --class ubuntu --class os {
+            search --set=root /dev/sda1
+            linux	/boot/vmlinuz-6.8.0-87-generic root=/dev/sda1
+            initrd	/boot/initrd.img-6.8.0-87-generic
+        }
+        ```
+    6. Load Kernel in Memory along with initrd -- vmlinuz & initrd
+
+- initrd or initramfs
+    - When kernel is loaded by the bootloader, it needs the access to the disk and filesystem, so that it can start executing programs one by one (starting from init/systemd).
+    - Before disk/fs accessed, you need a temp fs containing minimal device drivers (for disk and basic devices).
+    - This temp fs is "initrd" or "initramfs". It is also loaded by the grub. 
+    - Kernel use this fs until root fs on disk is accessible.
+
+- GrUB -- Linux Bootloader for PC
+    - Divided into 3 stages.
+    - Stage 1 -- In boot (first) sector of disk
+        - Like Bootstrap program
+        - Very small (< 440 bytes)
+        - Loads Stage 1.5
+    - Stage 1.5 -- Before first partition of the disk
+        - Usually from sector 2 to sector 2047
+        - Approx 20-30 kb space used
+        - Keeps Linux FS manager (ext2/3)
+        - This FS manager is used to read Linux FS & load the Stage 2.
+    - Stage 2 -- In Linux boot partition
+        - Main grub bootloader with its config file i.e. grub.cfg
+        - This partition also contains kernel vmlinuz, initrd and other booting related components.
+        - It loads Kernel and Initrd in RAM.
+
+- Linux Kernel Entry
+    - Kernel is loaded in RAM -- zipped format.
+    - Kernel is decompressed (extracted) in RAM.
+    - Kernel entrypoint is executed.
+        - Arch specific -- entry.S (basic hw setup)
+        - Kernel entry -- start_kernel() in <ksrc>/init/main.c
+    - start_kernel()
+        - basic system init
+        - call rest_init()
+    - rest_init()
+        - create first process -- "init" or "systemd" -- pid=1
+    - Access disk and root file system 
+
+- Linux Startup sequence (init -- old kernel)
+    - Access disk and root file system
+    - Start system services (background daemons) -- for Uniprocessor -- Sequential execution (slower booting)
+    - Step by step initialization -- Runlevels
+        - 1. Rescue/Failsafe mode
+            - Kernel starts with minimal services/drivers
+            - No default access to disk
+            - Only root login
+            - For booting troubleshooting
+        - 2. Multi user mode
+            - Security is enabled
+            - Can login from any user (locally)
+            - No network
+        - 3. Multi user with Network
+            - Can login from any user
+            - Networking enabled
+            - No Graphical interface (GUI)
+        - 4. Reserved
+        - 5. Graphical user interface
+            - GUI is also loaded
+    - Command -- "init" Command
+        - init 0 -- shutdown
+        - init 3 -- switch to runlevel 3
+        - init 6 -- reboot
+
+- Linux Startup sequence (systemd -- modern kernel 3.0+)
+    - Access disk and root file system 
+    - Start system services (background daemons) -- for Multi-processor -- Parallel execution (faster booting)
+    - Step by step initialization -- Run Targets
+        - rescue.target
+            - Single user mode -- root login
+            - For boot troubleshooting
+            - Like runlevel 1.
+        - multi-user.target
+            - Multiple user mode with Networking enabled.
+            - No GUI
+            - Like runlevel 2 + 3.
+        - graphical.target
+            - GUI
+            - Like runlevel 5.
+    - "systemctl" command
+        - Power off -- systemctl poweroff
+        - ...
+
+- Booting -- Man pages
+    - man 7 boot
+    - man 7 bootup

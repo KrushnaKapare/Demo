@@ -1,0 +1,9 @@
+Assignment
+1. From one parent create 5 child processes. Each child should run for 5 seconds and print count along
+with its pid. Parent should wait for all child processes to complete and clean all of them. Hint: use
+loop to fork() multiple child processes.
+2. From a parent process (A) create a child process (B). The child (B) in turn creates new child process (C)
+and it (C) in turn create new child (D). All these processes should run concurrently for 5 seconds and
+cleaned up properly upon termination.
+3. Find max number of child processes that can be created on Linux using C program? Hint: use fork() in
+inﬁnite loop (wisely).

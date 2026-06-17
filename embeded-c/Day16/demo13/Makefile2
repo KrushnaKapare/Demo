@@ -1,0 +1,41 @@
+
+# Automatic variables
+#	$@ - automatically evaluated to the target of the rule
+#	$^ - automatically evaluated to the list of dependancies/preriusite
+#	$< - automatically evaluated to the corresponding dependancy
+
+TARGET=main
+
+CC=gcc 
+
+CFLAGS=-Wall
+LDFLAGS=-lm
+
+
+$(TARGET).out: main.o mmath.o
+	$(CC) $(LDFLAGS) -o $@ $^
+
+main.o:	main.c
+	$(CC) $(CFLAGS) -c $<
+
+mmath.o: mmath.c
+	$(CC) $(CFLAGS) -c $<
+
+run:
+	./$(TARGET).out
+
+clean:
+	rm -f *.o $(TARGET).out
+
+
+
+
+
+
+
+
+
+
+
+
+

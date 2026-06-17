@@ -1,0 +1,15 @@
+
+SPI driver registration --- helper macro 
+    - module_spi_driver(&spi_driver);
+    - This macro internally creates a `module_init()` fn which in turn register our driver using `spi_register_driver()` 
+    - This macro also creates a `module_exit()` fn which in turn unregister the driver.
+
+                                                                    
+I2C driver registration --- helper macro
+    - module_i2c_driver(&i2c_driver);
+
+USB driver registration --- helper macro 
+    - module_usb_driver(&usb_driver);
+
+Platform driver registration --- helper macro 
+    - module_platform_driver(&driver);

@@ -1,0 +1,70 @@
+cat > sample.txt
+cat sample.txt 
+ls -l sample.txt 
+stat sample.txt 
+man stat
+stat -c "%n" sample.txt 
+stat -c "%U" sample.txt 
+stat -c "%A" sample.txt 
+stat -c "%F" sample.txt 
+stat -c "%n : %F" sample.txt 
+stat -c "name = %n : type = %F" sample.txt 
+ls
+echo $SHELL
+ps
+cat > numbers.txt
+cat numbers.txt 
+cat -n numbers.txt 
+head numbers.txt 
+tail numbers.txt 
+head -7 numbers.txt 
+tail -4 numbers.txt 
+cat numbers.txt 
+sort numbers.txt 
+sort -n numbers.txt 
+rev numbers.txt 
+tac numbers.txt 
+uniq numbers.txt 
+sort numbers.txt 
+uniq numbers.txt 
+ls
+ls -W
+cat
+cat > sample.txt 
+ls
+ls > lsout.txt
+cat lsout.txt 
+sort numbers.txt > sorted.txt
+uniq sorted.txt 
+cat < sample.txt 
+cat < sample.txt > cat.txt
+cat cat.txt 
+ls -W
+ls -W 2> lserr.txt
+cat lserr.txt 
+bc
+cat > input.txt
+cat input.txt 
+bc < input.txt > output.txt 2>error.txt
+cat output.txt 
+cat error.txt 
+sort numbers.txt | uniq
+head -7 numbers.txt 
+head -7 numbers.txt | tail -4
+echo "Hello DESD"
+echo "Hello DESD" | tr " " "#"
+echo "Hello DESD" | tr "a-z" "A-Z"
+echo "Hello DESD" | tr "A-Z" "a-z"
+echo "Hello    DESD"
+echo "Hello        DESD" | tr -s " "
+echo "Hello        DESD" | tr -s "l"
+echo "Hello        DESD" | tr -s "l "
+echo "Hello        DESD" | tr -s "l D"
+echo "DESD DMC DBDA DITISS DAC"
+echo "DESD DMC DBDA DITISS DAC" | cut -d " " -f1
+echo "DESD DMC DBDA DITISS DAC" | cut -d " " -f2
+echo "DESD DMC DBDA DITISS DAC" | cut -d " " -f4
+echo "DESD DMC DBDA DITISS DAC" | cut -d " " -f7
+echo "DESD DMC DBDA DITISS DAC" | cut -d " " -f1,2
+echo "DESD DMC DBDA DITISS DAC" | cut -d " " -f3,4
+echo "DESD DMC DBDA DITISS DAC" | cut -d " " -f2-4

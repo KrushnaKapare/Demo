@@ -1,0 +1,37 @@
+Windows Installation
+
+Step 1: Verify Python Installation
+
+command :  python --version
+
+If it is installed, You will see something like this:
+
+Python 3.13.1
+
+Step 2: Install Jupyter Notebook
+
+Type the following command to install Jupyter:
+
+python -m pip install jupyter
+
+Step 3: Launching Jupyter
+Use the following command to launch Jupyter using:
+
+jupyter notebook
+
+
+To install Python package
+
+Open command Prompt run Following Command
+
+1 . pip install pandas
+
+2. pip install numpy
+
+3. pip install scikit-learn
+
+4. pip install matplotlib
+
+5. pip install seaborn
+
+

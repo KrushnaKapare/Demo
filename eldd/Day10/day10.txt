@@ -1,0 +1,102 @@
+- Spinlock and Unlock with Interrupt
+    - CPU interrupts -- 10 interrupts
+        - UART disabled, ADC disabled, USB enabled, I2C enabled, others enabled.
+    - spin_lock_irqsave()
+        - lock = 1 (locked)
+        - Save interrupt state -- Disabled: UART and ADC.
+        - Disable all remaining interrupts
+    - Critical section code
+    - spin_lock_irqrestore()
+        - Read interrupt state
+        - Enable interrupts except earlier disabled -- UART and ADC
+        - lock = 0 (unlocked)
+
+- Interrupt Stack
+    - Per CPU (processor)
+    - Kernel space
+    - One page (4 KB)
+
+- Spinlock implementation on ARM Cortex
+    - LDREX instruction
+    - STREX instruction
+    - CLREX instruction
+
+- Day 10 Agenda
+    - Timer revision
+    - Kernel Thread
+    - Hardware - HAL
+    - Linux GPIO subsystem
+    - GPIO device driver
+
+- Hardware/Peripheral Interfacing
+    - Peripherals are controlled by their respective IO registers.
+    - e.g. GPIO has GPIO registers
+    - e.g. UART has UART registers
+    - IO register access architecture specific.
+        - Memory Mapped IO -- e.g. ARM, ...
+        - IO Mapped IO -- e.g. x86, ...
+    - Linux kernel has HAL layer -- for unified access to underlying hardware.
+
+- Linux Device Driver — Direct Hardware Access (MMIO) — e.g. GPIO (ARM boards)
+    - Step 1: Acquire ownership of GPIO physical region (module_init)
+        - request_mem_region(GPIO_BASE, 4096, "gpio");
+    - Step 2: Map physical → virtual address using ioremap() (module_init)
+        - ptr = ioremap(GPIO_BASE, 4096);
+    - Step 3: GPIO initialization (module_init or device_open)
+        - e.g. Configure direction and other control bits by writing to GPIO control registers.
+        - val = ioread32(ptr + OE_OFFSET);
+        - val &= ~(1 << pin);                // output
+        - iowrite32(val, ptr + OE_OFFSET);
+    - Step 4: GPIO write (device_write)
+        - Use DATAOUT or atomic SET/CLEAR registers depending on SoC.
+            - iowrite32(1 << pin, ptr + SET_OFFSET);   // High
+            - iowrite32(1 << pin, ptr + CLR_OFFSET);   // Low
+    - Step 5: Unmap virtual address using iounmap() (module_exit)
+        - iounmap(ptr);
+    - Step 6: Release GPIO physical region (module_exit)
+        - release_mem_region(GPIO_BASE, 4096);
+
+- Two Methods of writing device driver
+    - Method 1 - Using direct hardware access -- via HAL (as mentioned above)
+    - Method 2 - Using kernel built-in subsystems/drivers
+        - Peripheral hardware owned by built-in subsystems/drivers.
+        - These drivers/subsystems export functions for interfacing.
+        - Write your driver which will call these exported functions.
+
+- BBB GPIO Driver -- Consumer Driver
+    0. #define LED_PIN 49
+    1. module_init()
+        - alloc_chrdev_region();
+        - class_create();
+        - device_create(..., "myled");
+        - cdev_init();
+        - cdev_add();
+        - ret = gpio_is_valid(LED_PIN);
+        - ptr = gpio_request(LED_PIN, "bbb-led");
+        - gpio_direction_output(LED_PIN, 0); // init LED off
+    2. module_exit()
+        - gpio_free(LED_PIN);
+        - cdev_del();
+        - device_destroy();
+        - class_destroy();
+        - unregister_chrdev_region();
+    3. device_open()
+    4. device_close()
+    5. device_write()
+        - copy from ubuf to temp kbuf[2]
+        - if(kbuf[0] == '1')
+        -   state = 1;
+        -   gpio_set_value(LED_PIN, 1);
+        - else
+        -   state = 0;
+        -   gpio_set_value(LED_PIN, 0);
+    6. device_read()
+        - temp kbuf[2] = "1" or "0"; // as per "state"
+        - copy from kbuf to ubuf
+
+- BBB GPIO Driver Test -- User space application
+    - fd = open("/dev/myled", O_RDWR);
+    - write(fd, "1", 2); // Led ON
+    - write(fd, "0", 2); // Led OFF
+    - read(fd, &state, 2); // Get Led state
+    - close(fd);

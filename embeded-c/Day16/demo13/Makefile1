@@ -1,0 +1,44 @@
+
+
+# Make variables
+#	- variables are used to store values
+# declaration
+#		<variable name>=<value>
+# usgae
+#		$(<variable name>)
+
+TARGET=main
+
+CC=gcc 
+
+CFLAGS=-Wall
+LDFLAGS=-lm
+
+
+$(TARGET).out: main.o mmath.o
+	$(CC) $(LDFLAGS) -o $(TARGET).out main.o mmath.o
+
+main.o:	main.c
+	$(CC) $(CFLAGS) -c main.c
+
+mmath.o: mmath.c
+	$(CC) $(CFLAGS) -c mmath.c
+
+run:
+	./$(TARGET).out
+
+clean:
+	rm -f *.o $(TARGET).out
+
+
+
+
+
+
+
+
+
+
+
+
+

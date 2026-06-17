@@ -1,0 +1,24 @@
+### Yocto
+- Yocto is SI unit.
+    - milli (10-3), micro (10-6), nano (10-9), pico (10-12), ..., yocto (10-24)
+- Yocto -- Linux Build System -- Used to create (Embedded) Linux distro.
+    - Yocto alternatives
+        - Build Linux system from scratch
+        - Buildroot
+        - OpenEmbedded
+- Linux Distro
+    - Ready to use Linux (binaries & other files) on target system.
+    - Popular distros: Ubuntu, Debian, RedHat, SuSE, Kali, Arch, ...
+    - Distro = Kernel (vmlinuz) + Dynamic components like Drivers (.ko) + Bootloader (GrUB, LiLo, uBoot) + Shell (bash, busybox, ...) + Package manager (apt, rpm, ...) + GUI (GNOME, KDE, XFCE, ...) + Utilities + Applications
+- Embedded Linux
+    - Embedded Linux = Kernel + Dynamic modules + Bootloader + Shell + Root file system + Toolchain + Utilities (optional)
+    - From scractch approach
+        - Toolchain -- Usually Downloaded
+        - Compile kernel -- Kernel image (uImage) + Dynamic modules (.ko)
+        - Compile bootloader -- (MLO + uboot.img)
+        - Compile busybox -- Shell
+        - Root File System -- busybox + libraries + drivers (.ko)
+        - SD card
+            - BOOT partition -- Bootloader + Kernel
+            - ROOT partition -- Root FS
+- 

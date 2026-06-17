@@ -1,0 +1,56 @@
+cat > taste.txt
+grep "good" taste.txt 
+grep "cake" taste.txt 
+grep "is" taste.txt 
+grep -w "is" taste.txt 
+grep -n "is" taste.txt 
+grep -c "is" taste.txt 
+grep "Is" taste.txt 
+grep -i "Is" taste.txt 
+grep -v "is" taste.txt 
+grep "is" taste.txt 
+grep "^is" taste.txt 
+grep "is$" taste.txt 
+grep "^is$" taste.txt 
+cat > select.txt
+grep "bg" select.txt 
+grep "bag" select.txt 
+grep "big" select.txt 
+grep "bog" select.txt 
+grep "b[aio]g" select.txt 
+grep "b[^aio]g" select.txt 
+grep "b.g" select.txt 
+grep "b*g" select.txt 
+grep "b\*g" select.txt 
+grep "b[*]g" select.txt 
+grep -F "b*g" select.txt 
+fgrep "b*g" select.txt 
+cat repeat.txt
+cat > repeat.txt
+grep "bg" repeat.txt 
+grep "bag" repeat.txt 
+grep "b.g" repeat.txt 
+grep "b..g" repeat.txt 
+grep "ba*g" repeat.txt 
+grep "ba?g" repeat.txt 
+grep -E "ba?g" repeat.txt 
+egrep "ba?g" repeat.txt 
+egrep "ba+g" repeat.txt 
+egrep "ba{3}g" repeat.txt 
+egrep "ba{6}g" repeat.txt 
+egrep "ba{3,6}g" repeat.txt 
+egrep "ba{3,}g" repeat.txt 
+egrep "ba{,6}g" repeat.txt 
+egrep "bag" repeat.txt 
+egrep "b.g" repeat.txt 
+egrep "b[a]g" repeat.txt 
+egrep "b[aa]g" repeat.txt 
+egrep "b(aa)g" repeat.txt 
+egrep "b[aa]{2}g" repeat.txt 
+egrep "b[aa]{4}g" repeat.txt 
+egrep "b(aa){2}g" repeat.txt 
+egrep "b(aa){4}g" repeat.txt 
+grep "cake|good" taste.txt 
+egrep "cake|good" taste.txt 
+grep "bg" -r
+grep -n "bg" -r
